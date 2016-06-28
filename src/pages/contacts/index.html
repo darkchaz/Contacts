@@ -1,0 +1,86 @@
+<template>
+	<section class="contacts">
+
+		<h2>${heading}</h2>
+		<div class="sub-heading">${sub_heading}</div>
+		<table>
+			<tr>
+				<th></th>
+				<th>Type</th>
+				<th>Name</th>
+				<th>Title</th>
+				<th>Phone</th>
+				<th>Ext.</th>
+				<th>Fax</th>
+				<th>Email</th>
+			</tr>
+			<tr repeat.for="c of contacts" class="${ $even ? 'even': ''}">
+				<td><input type="checkbox" change.delegate="$parent.queue_remove($index)" /></td>
+				<td>${c.type}</td>
+				<td>${c.name}</td>
+				<td>${c.title}</td>
+				<td>${c.phone}</td>
+				<td>${c.ext}</td>
+				<td>${c.fax}</td>
+				<td>${c.email}</td>
+			</tr>
+		</table>
+
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-plus"></span> Add </button>
+		<button click.delegate="remove_contacts()" class="btn btn-danger" id="btn-remove" style="display:none"><span class="glyphicon glyphicon-remove"></span> Remove </button>
+		<button click.delegate="reset()" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> Reset</button>
+
+		<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form role="form" submit.delegate="add_contact(this)">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Add Contact</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="type" class="">Type</label>
+						        <select value.bind="add.type" class="form-control" required>
+						        	<option value="">Please Select</option>
+						            <option repeat.for="t of type_list">${t}</option>
+						        </select>
+							</div>
+							<div class="form-group">
+								<label for="name">Name</label>
+								<input value.bind="add.name" type="text" class="form-control" placeholder="" required>
+							</div>
+							<div class="form-group">
+								<label for="title">Title</label>
+								<input value.bind="add.title" type="text" class="form-control" placeholder="" >
+							</div>
+							<div class="form-group">
+								<label for="phone">Phone</label>
+								<input value.bind="add.phone" type="text" class="form-control" placeholder="" >
+							</div>
+							<div class="form-group">
+								<label for="ext">Ext.</label>
+								<input value.bind="add.ext" type="text" class="form-control" placeholder="" >
+							</div>
+							<div class="form-group">
+								<label for="fax">Fax</label>
+								<input value.bind="add.fax" type="text" class="form-control" placeholder="" >
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input value.bind="add.email" type="text" class="form-control" placeholder="" >
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</template>
